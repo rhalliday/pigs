@@ -1,11 +1,12 @@
 import React from "react";
+import { SpriteSheet } from "react-spritesheet";
+import diceSprite from "./img/dice-sprite.jpg";
 
 class Dice extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      faceValue: 0,
-      face: "&#x2680;",
+      faceValue: 6,
       rollCount: 1,
       isRolling: false,
     };
@@ -13,13 +14,51 @@ class Dice extends React.Component {
     this.HandleDiceThrow = this.HandleDiceThrow.bind(this);
   }
 
+  spriteSheet = {
+    1: {
+      x: 0,
+      y: 105,
+      width: 105,
+      height: 110,
+    },
+    2: {
+      x: 106,
+      y: 105,
+      width: 105,
+      height: 110,
+    },
+    3: {
+      x: 213,
+      y: 105,
+      width: 105,
+      height: 110,
+    },
+    4: {
+      x: 322,
+      y: 105,
+      width: 105,
+      height: 110,
+    },
+    5: {
+      x: 428,
+      y: 105,
+      width: 105,
+      height: 110,
+    },
+    6: {
+      x: 535,
+      y: 105,
+      width: 105,
+      height: 110,
+    },
+  };
+
   DiceRoll() {
     let faceValue = GenerateRandomInt(0, 5);
     this.setState({
       rollCount: this.state.rollCount - 1,
       isRolling: this.state.rollCount > 0,
       faceValue: faceValue,
-      face: "&#x" + String(2680 + faceValue) + ";",
     });
   }
   HandleDiceThrow() {
@@ -32,12 +71,12 @@ class Dice extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div
-          onClick={this.HandleDiceThrow}
-          id="diceFace"
-          dangerouslySetInnerHTML={{ __html: `${this.state.face}` }}
-        ></div>
+      <div className="dieFace" onClick={this.HandleDiceThrow} id="dieFace">
+        <SpriteSheet
+          filename={diceSprite}
+          data={this.spriteSheet}
+          sprite={this.state.faceValue}
+        />
       </div>
     );
   }

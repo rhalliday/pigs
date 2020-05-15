@@ -37,6 +37,7 @@
   }
 }
 
-div#diceFace {
-  font-size: 50em;
+.dieFace {
+  margin-left: 45%;
+  background-size: 150% 150%;
 }
