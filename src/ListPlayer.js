@@ -4,8 +4,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 function ListPlayer(props) {
   let players = props.players;
   let playerList = players.map((player) => (
-    <ListGroup.Item key={player} onClick={props.handleRemovePlayer}>
-      {player}
+    <ListGroup.Item key={player.name} onClick={props.handleRemovePlayer}>
+      {player.name}
     </ListGroup.Item>
   ));
   return (

@@ -10,7 +10,7 @@ class AddPlayer extends React.Component {
 
   render() {
     return (
-      <Form className="add-player-form">
+      <Form className="add-player-form" onSubmit={this.props.onSubmit}>
         <Form.Group controlId="formNewPlayer">
           <Form.Control type="text" placeholder="Enter player name" />
         </Form.Group>

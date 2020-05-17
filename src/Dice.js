@@ -29,6 +29,9 @@ class Dice extends React.Component {
       faceValue: faceValue,
       diceFace: this.dice[faceValue - 1],
     });
+    if (this.state.isRolling <= 0) {
+      this.props.handleDiceRoll(faceValue);
+    }
   }
   HandleDiceThrow() {
     if (this.state.isRolling) return;
