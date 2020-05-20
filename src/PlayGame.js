@@ -2,9 +2,12 @@ import React from "react";
 import Dice from "./Dice";
 import CurrentScore from "./CurrentScore";
 import BankPlayers from "./BankPlayers";
+import PlayerDisplay from "./PlayerDisplay";
+
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
 
 const MAX_SCORE = 50;
 const DEFAULT_MESSAGE = "Roll the dice or bank when you're done";
@@ -16,15 +19,26 @@ class PlayGame extends React.Component {
       currentPlayer: 0,
       currentScore: 0,
       gamePlayMessage: DEFAULT_MESSAGE,
+      winner: false,
     };
     this.NextPlayer = this.NextPlayer.bind(this);
     this.HandleBank = this.HandleBank.bind(this);
     this.HandleDiceRoll = this.HandleDiceRoll.bind(this);
+    this.HandleRestart = this.HandleRestart.bind(this);
   }
-
+  HandleRestart() {
+    this.props.players.forEach((element) => {
+      element.score = 0;
+    });
+    this.setState({
+      winner: false,
+    });
+    this.NextPlayer();
+  }
   HandleWin(player) {
     this.setState({
       gamePlayMessage: player.name + " has won the game!",
+      winner: true,
     });
   }
   NextPlayer() {
@@ -61,7 +75,25 @@ class PlayGame extends React.Component {
       currentScore: currentScore,
     });
   }
+  getBankButton() {
+    return (
+      <Button variant="primary" onClick={this.HandleBank}>
+        Bank
+      </Button>
+    );
+  }
+  getRestartButton() {
+    return (
+      <Button variant="primary" onClick={this.HandleRestart}>
+        Restart
+      </Button>
+    );
+  }
   render() {
+    let currentPlayer = this.props.players[this.state.currentPlayer] || {
+      name: "___test",
+      score: 0,
+    };
     return (
       <>
         <Col>
@@ -69,23 +101,32 @@ class PlayGame extends React.Component {
             <Col>
               <Dice handleDiceRoll={this.HandleDiceRoll} />
             </Col>
-            <Col>{this.state.gamePlayMessage}</Col>
-          </Row>
-          <Row>
             <Col>
-              <CurrentScore score={this.state.currentScore} />
-            </Col>
-            <Col xs lg="2">
-              <Button variant="primary" onClick={this.HandleBank}>
-                Bank
-              </Button>
+              <Row className="mb-2">{this.state.gamePlayMessage}</Row>
+              <Row className="mb-2">
+                <Card border="success" style={{ width: "18rem" }}>
+                  <Card.Body>
+                    <PlayerDisplay player={currentPlayer} displayScore={true} />
+                  </Card.Body>
+                </Card>
+              </Row>
+              <Row className="mb-2">
+                <Col>
+                  <CurrentScore score={this.state.currentScore} />
+                </Col>
+                <Col>
+                  {this.state.winner
+                    ? this.getRestartButton()
+                    : this.getBankButton()}
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>
         <Col xs lg="2">
           <BankPlayers
             players={this.props.players}
-            currentPlayer={this.state.currentPlayer}
+            currentPlayer={currentPlayer.name}
           />
         </Col>
       </>

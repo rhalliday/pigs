@@ -10,7 +10,7 @@ function StartGame(props) {
     <>
       <Col>
         <Row>
-          <Col xs lg="4">
+          <Col xs lg="8">
             <AddPlayer onSubmit={props.handleAddPlayer} />
           </Col>
         </Row>

@@ -3,9 +3,8 @@ import Card from "react-bootstrap/Card";
 
 function CurrentPlayer(props) {
   return (
-    <Card>
-      <Card.Header>Current Score</Card.Header>
-      <Card.Body>{props.score}</Card.Body>
+    <Card bg="light">
+      <Card.Body>Current score: {props.score}</Card.Body>
     </Card>
   );
 }

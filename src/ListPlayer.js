@@ -1,16 +1,22 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
+import PlayerDisplay from "./PlayerDisplay";
 
 function ListPlayer(props) {
   let players = props.players;
-  let playerList = players.map((player) => (
-    <ListGroup.Item key={player.name} onClick={props.handleRemovePlayer}>
-      {player.name}
-    </ListGroup.Item>
-  ));
+  let playerList = players.map((player) => {
+    let clickHandler = (event) => {
+      props.handleRemovePlayer(player.name);
+    };
+    return (
+      <ListGroup.Item key={player.name} onClick={clickHandler}>
+        <PlayerDisplay player={player} />
+      </ListGroup.Item>
+    );
+  });
   return (
     <div>
-      Players
+      <h4>Players</h4>
       <ListGroup>{playerList}</ListGroup>
     </div>
   );

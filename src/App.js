@@ -21,17 +21,13 @@ class App extends React.Component {
     this.HandleStartGame = this.HandleStartGame.bind(this);
     this.HandleFinishGame = this.HandleFinishGame.bind(this);
   }
-  HandleAddPlayer(event) {
-    let form =
-      event.target.form !== undefined ? event.target.form : event.target;
-    let player = form[0];
+  HandleAddPlayer(player) {
     let players = this.state.players;
-    players.push({ name: player.value, score: 0 });
+    players.push(player);
     this.setState({
       players: players,
     });
     player.value = "";
-    event.preventDefault();
   }
   findPlayerPosition(player) {
     for (let i = 0; i < this.state.players.length; i++) {
@@ -41,8 +37,7 @@ class App extends React.Component {
     }
     return -1;
   }
-  HandleRemovePlayer(event) {
-    let player = event.target.firstChild.nodeValue;
+  HandleRemovePlayer(player) {
     let players = this.state.players;
     let position = this.findPlayerPosition(player);
     if (position >= 0) {
