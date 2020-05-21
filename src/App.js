@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import StartGame from "./StartGame";
 import PlayGame from "./PlayGame";
-import picPic from "./img/cartoon-pig-with-glasses.jpg";
+import picPic from "./img/avatar-2.jpg";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

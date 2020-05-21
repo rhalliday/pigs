@@ -32,6 +32,7 @@ class PlayGame extends React.Component {
     });
     this.setState({
       winner: false,
+      currentScore: 0,
     });
     this.NextPlayer();
   }
