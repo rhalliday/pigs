@@ -1,68 +1,58 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
 import FormControl from "react-bootstrap/FormControl";
 import Image from "react-bootstrap/Image";
-
-import avatar1 from "./img/avatar-1.jpg";
-import avatar2 from "./img/avatar-2.jpg";
-import avatar3 from "./img/avatar-3.jpg";
-import avatar4 from "./img/avatar-4.jpg";
-import avatar5 from "./img/avatar-5.jpg";
-import avatar6 from "./img/avatar-6.jpg";
-import avatar7 from "./img/avatar-7.jpg";
-import avatar8 from "./img/avatar-8.jpg";
-import avatar9 from "./img/avatar-9.png";
-import avatar10 from "./img/avatar-10.jpg";
-import avatar11 from "./img/avatar-11.jpg";
-import avatar12 from "./img/avatar-12.jpg";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
+import Avatars from "./Avatar";
 
 class AddPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playerAvatar: avatar2,
+      playerAvatar: Avatars[1].image,
+      showModal: false,
     };
     this.playerRef = React.createRef();
     this.HandleAvatarSelect = this.HandleAvatarSelect.bind(this);
     this.HandleKeyPress = this.HandleKeyPress.bind(this);
     this.HandleSubmit = this.HandleSubmit.bind(this);
+    this.HandleImageSelect = this.HandleImageSelect.bind(this);
+    this.avatars = chunkArray(Avatars, 2);
   }
 
   getAvatars() {
-    const images = [
-      { name: "avatar-1.jpg", image: avatar1 },
-      { name: "avatar-2.jpg", image: avatar2 },
-      { name: "avatar-3.jpg", image: avatar3 },
-      { name: "avatar-4.jpg", image: avatar4 },
-      { name: "avatar-5.jpg", image: avatar5 },
-      { name: "avatar-6.jpg", image: avatar6 },
-      { name: "avatar-7.jpg", image: avatar7 },
-      { name: "avatar-8.jpg", image: avatar8 },
-      { name: "avatar-9.jpg", image: avatar9 },
-      { name: "avatar-10.jpg", image: avatar10 },
-      { name: "avatar-11.jpg", image: avatar11 },
-      { name: "avatar-12.jpg", image: avatar12 },
-    ];
-
-    return images.map((img) => {
-      return (
-        <Dropdown.Item
-          href="#"
-          key={img.name}
-          eventKey={img.image}
-          onSelect={this.HandleAvatarSelect}
-        >
-          <Image src={img.image} width="70" height="70" roundedCircle />
-        </Dropdown.Item>
-      );
+    let i = 0;
+    return this.avatars.map((avatars) => {
+      let items = avatars.map((avatar) => {
+        let selectHelper = () => this.HandleAvatarSelect(avatar.image);
+        return (
+          <Col key={avatar.name}>
+            <Image
+              onClick={selectHelper}
+              src={avatar.image}
+              width="70"
+              height="70"
+              roundedCircle
+            />
+          </Col>
+        );
+      });
+      let rowKey = "imageSelectRow-" + i++;
+      return <Row key={rowKey}>{items}</Row>;
+    });
+  }
+  HandleImageSelect() {
+    this.setState({
+      showModal: true,
     });
   }
   HandleAvatarSelect(eventKey) {
     this.setState({
       playerAvatar: eventKey,
+      showModal: false,
     });
   }
   HandleKeyPress(target) {
@@ -88,20 +78,16 @@ class AddPlayer extends React.Component {
     return (
       <>
         <InputGroup className="mb-3">
-          <DropdownButton
-            variant="outline-secondary"
-            title={
-              <Image
-                src={this.state.playerAvatar}
-                width="70"
-                height="70"
-                roundedCircle
-              />
-            }
-            id="input-group-dropdown-1"
-          >
-            {images}
-          </DropdownButton>
+          <Image
+            src={this.state.playerAvatar}
+            width="70"
+            height="70"
+            roundedCircle
+            onClick={this.HandleImageSelect}
+          />
+          <Modal show={this.state.showModal}>
+            <Modal.Body>{images}</Modal.Body>
+          </Modal>
         </InputGroup>
         <InputGroup className="mb-3">
           <FormControl
@@ -120,6 +106,16 @@ class AddPlayer extends React.Component {
       </>
     );
   }
+}
+
+function chunkArray(myArray, chunk_size) {
+  let results = [];
+  let localArray = [];
+  myArray.forEach((element) => localArray.push(element));
+  while (localArray.length) {
+    results.push(localArray.splice(0, chunk_size));
+  }
+  return results;
 }
 
 export default AddPlayer;
