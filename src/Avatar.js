@@ -10,6 +10,7 @@ import avatar9 from "./img/avatar-9.png";
 import avatar10 from "./img/avatar-10.jpg";
 import avatar11 from "./img/avatar-11.jpg";
 import avatar12 from "./img/avatar-12.jpg";
+import avatar14 from "./img/avatar-14.jpg";
 
 const images = [
   { name: "avatar-1.jpg", image: avatar1 },
@@ -24,6 +25,7 @@ const images = [
   { name: "avatar-10.jpg", image: avatar10 },
   { name: "avatar-11.jpg", image: avatar11 },
   { name: "avatar-12.jpg", image: avatar12 },
+  { name: "avatar-14.jpg", image: avatar14 },
 ];
 
 export default images;
