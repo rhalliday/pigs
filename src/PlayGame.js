@@ -9,7 +9,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
-const MAX_SCORE = 50;
 const DEFAULT_MESSAGE = "Roll the dice or bank when you're done";
 
 class PlayGame extends React.Component {
@@ -54,7 +53,7 @@ class PlayGame extends React.Component {
     let currentScore = this.state.currentScore;
     let players = this.props.players;
     players[this.state.currentPlayer].score += currentScore;
-    if (players[this.state.currentPlayer].score >= MAX_SCORE) {
+    if (players[this.state.currentPlayer].score >= this.props.winningLine) {
       return this.HandleWin(players[this.state.currentPlayer]);
     }
     this.setState({
