@@ -15,11 +15,18 @@ class App extends React.Component {
       isRunning: false,
       currentPlayer: 0,
       currentScore: 0,
+      winningLine: 50,
     };
     this.HandleAddPlayer = this.HandleAddPlayer.bind(this);
     this.HandleRemovePlayer = this.HandleRemovePlayer.bind(this);
     this.HandleStartGame = this.HandleStartGame.bind(this);
     this.HandleFinishGame = this.HandleFinishGame.bind(this);
+    this.HandleWinningLineChange = this.HandleWinningLineChange.bind(this);
+  }
+  HandleWinningLineChange(newLine) {
+    this.setState({
+      winningLine: newLine,
+    });
   }
   HandleAddPlayer(player) {
     let players = this.state.players;
@@ -72,6 +79,7 @@ class App extends React.Component {
             handleAddPlayer={this.HandleAddPlayer}
             handleRemovePlayer={this.HandleRemovePlayer}
             handleStartGame={this.HandleStartGame}
+            handleWinningLine={this.HandleWinningLineChange}
           />
         </Row>
         <Row
@@ -82,6 +90,7 @@ class App extends React.Component {
             className="Game"
             players={this.state.players}
             handleFinishGame={this.HandleFinishGame}
+            winningLine={this.state.winningLine}
           />
         </Row>
       </Container>
