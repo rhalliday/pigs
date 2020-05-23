@@ -77,7 +77,11 @@ class PlayGame extends React.Component {
   }
   getBankButton() {
     return (
-      <Button variant="primary" onClick={this.HandleBank}>
+      <Button
+        variant="primary"
+        onClick={this.HandleBank}
+        disabled={this.state.currentScore === 0}
+      >
         Bank
       </Button>
     );
