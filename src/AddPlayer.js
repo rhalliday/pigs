@@ -20,7 +20,8 @@ class AddPlayer extends React.Component {
     this.HandleKeyPress = this.HandleKeyPress.bind(this);
     this.HandleSubmit = this.HandleSubmit.bind(this);
     this.HandleImageSelect = this.HandleImageSelect.bind(this);
-    this.avatars = chunkArray(Avatars, 2);
+    this.HandleHideModal = this.HandleHideModal.bind(this);
+    this.avatars = chunkArray(Avatars, 5);
   }
 
   getAvatars() {
@@ -41,12 +42,21 @@ class AddPlayer extends React.Component {
         );
       });
       let rowKey = "imageSelectRow-" + i++;
-      return <Row key={rowKey}>{items}</Row>;
+      return (
+        <Row key={rowKey} className="mb-3">
+          {items}
+        </Row>
+      );
     });
   }
   HandleImageSelect() {
     this.setState({
       showModal: true,
+    });
+  }
+  HandleHideModal() {
+    this.setState({
+      showModal: false,
     });
   }
   HandleAvatarSelect(eventKey) {
@@ -85,7 +95,11 @@ class AddPlayer extends React.Component {
             roundedCircle
             onClick={this.HandleImageSelect}
           />
-          <Modal show={this.state.showModal}>
+          <Modal
+            show={this.state.showModal}
+            centered={true}
+            onHide={this.HandleHideModal}
+          >
             <Modal.Body>{images}</Modal.Body>
           </Modal>
         </InputGroup>
