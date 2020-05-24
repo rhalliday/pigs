@@ -1,4 +1,5 @@
 import React from "react";
+
 import Dice from "./Dice";
 import CurrentScore from "./CurrentScore";
 import BankPlayers from "./BankPlayers";
@@ -33,6 +34,7 @@ class PlayGame extends React.Component {
       winner: false,
       currentScore: 0,
     });
+    this.props.handleRestart();
     this.NextPlayer();
   }
   HandleWin(player) {
@@ -40,6 +42,7 @@ class PlayGame extends React.Component {
       gamePlayMessage: player.name + " has won the game!",
       winner: true,
     });
+    this.props.handleHasWon();
   }
   NextPlayer() {
     let currentPlayer = this.state.currentPlayer;
@@ -127,7 +130,7 @@ class PlayGame extends React.Component {
             </Col>
           </Row>
         </Col>
-        <Col xs lg="2">
+        <Col xs lg="3">
           <BankPlayers
             players={this.props.players}
             currentPlayer={currentPlayer.name}

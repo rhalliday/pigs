@@ -41,7 +41,7 @@ function StartGame(props) {
           </Button>
         </Row>
       </Col>
-      <Col xs lg="2">
+      <Col xs lg="3">
         <ListPlayer
           players={props.players}
           handleRemovePlayer={props.handleRemovePlayer}

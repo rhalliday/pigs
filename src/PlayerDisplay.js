@@ -8,11 +8,11 @@ function PlayerDisplay(props) {
   return (
     <>
       <Row className="display-player">
-        <Col>
+        <Col xs lg="3">
           <Image src={player.avatar} width="50" height="50" roundedCircle />
         </Col>
         <Col>{player.name}</Col>
-        <Col className={props.displayScore ? "" : "hide-score"}>
+        <Col xs lg="2" className={props.displayScore ? "" : "hide-score"}>
           {player.score}
         </Col>
       </Row>

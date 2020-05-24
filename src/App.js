@@ -6,6 +6,7 @@ import picPic from "./img/avatar-2.jpg";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Confetti from "react-confetti";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,15 +14,26 @@ class App extends React.Component {
     this.state = {
       players: [],
       isRunning: false,
-      currentPlayer: 0,
-      currentScore: 0,
       winningLine: 50,
+      hasWon: false,
     };
     this.HandleAddPlayer = this.HandleAddPlayer.bind(this);
     this.HandleRemovePlayer = this.HandleRemovePlayer.bind(this);
     this.HandleStartGame = this.HandleStartGame.bind(this);
     this.HandleFinishGame = this.HandleFinishGame.bind(this);
     this.HandleWinningLineChange = this.HandleWinningLineChange.bind(this);
+    this.HandleHasWon = this.HandleHasWon.bind(this);
+    this.HandleRestart = this.HandleRestart.bind(this);
+  }
+  HandleHasWon() {
+    this.setState({
+      hasWon: true,
+    });
+  }
+  HandleRestart() {
+    this.setState({
+      hasWon: false,
+    });
   }
   HandleWinningLineChange(newLine) {
     this.setState({
@@ -61,6 +73,9 @@ class App extends React.Component {
   render() {
     return (
       <Container>
+        {this.state.hasWon && (
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+        )}
         <Row>
           <Col>
             <div className="page-header">Pigs</div>
@@ -91,6 +106,8 @@ class App extends React.Component {
             players={this.state.players}
             handleFinishGame={this.HandleFinishGame}
             winningLine={this.state.winningLine}
+            handleHasWon={this.HandleHasWon}
+            handleRestart={this.HandleRestart}
           />
         </Row>
       </Container>

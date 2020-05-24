@@ -21,9 +21,7 @@ function BankPlayers(props) {
       <Row className="bank-header">
         <h4>Bank</h4>
       </Row>
-      <Row>
-        <ListGroup>{displayPlayers}</ListGroup>
-      </Row>
+      <ListGroup>{displayPlayers}</ListGroup>
     </>
   );
 }
