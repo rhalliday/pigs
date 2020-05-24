@@ -11,3 +11,8 @@ The player can choose whether they want to bank their score or roll again.
 If the player decides to bank the score, then that score is safe for the remainder of the game and the dice is passed to the next player.
 If the player rolls a 1, then they lose the score they have accumulated (but everything in the bank is safe) and the dice is passed to the next player.
 The winner is the player who manages to bank enough points to pass the agreed upon winning line.
+
+## Installation
+
+From the base directory run `npm install`
+To start the game run `yarn start`
